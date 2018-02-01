@@ -1,0 +1,20 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header">...</div>
+	
+	<div class="container">
+		<div class="starter-template">
+			<h1 th:text="|Error ${errorInfo.code}!|">Error!</h1>
+			<h3 th:text="|Couldn't access ${errorInfo.url}|">Error!</h3>
+			<div th:if="${errorInfo.message} != null">
+				<h3 th:text="|Reason: ${errorInfo.message}|">Error!</h3>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

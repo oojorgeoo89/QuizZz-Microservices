@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/head :: headerFragment">
+</head>
+<body ng-app="editApp" th:attr="ng-init='quizId='+${quiz.id}">
+
+	<div th:replace="fragments/header :: header">...</div>
+	
+	<div class="container">
+
+		<div class="container"> 
+		
+			<div class="col-sm-2"></div>
+			
+			<div class="col-sm-8" ng-controller="EditCtrl">
+			
+				<h2 th:text="#{label.editquiz.pagetitle}" class="text-center">New Quiz</h2>
+				<br/>
+				
+				<form name="EditQuiz">
+				
+					<div class="form-group">
+						<label th:text="#{label.newquiz.title}">Title</label>
+				        <input th:placeholder="#{label.newquiz.title.placeholder}" name="name" class="form-control" required="true" autofocus="true"  ng-model="quiz.name"/>
+				        <br/>
+				        <label th:text="#{label.newquiz.description}">Description</label>
+				        <textarea th:placeholder="#{label.newquiz.description.placeholder}" name="description" class="form-control" rows="3" ng-model="quiz.description" > </textarea>
+			        </div>
+			        
+			        <hr/>
+			        <h2 th:text="#{label.editquiz.questionstitle}" class="form-signin-heading text-center">New Quiz</h2>
+					<br/>
+			        
+			        <div class="form-group">
+			        	<ul dnd-list="questions" style="list-style: none">
+			        	
+							<li ng-repeat="question in questions" 
+							    dnd-draggable="question" 
+							    dnd-moved="questions.splice($index, 1)"
+							    dnd-effect-allowed="move">
+								
+								<div class="col-sm-9">
+									<div class="input-group">
+										<span class="input-group-addon" id="draggable-addon">::</span>
+										<input th:placeholder="#{label.editquiz.text.placeholder}" class="form-control"  aria-describedby="draggable-addon" ng-model="question.text"/>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<div class="btn-group">
+										<button class="btn btn-primary" ng-click="saveQuestion(question.id, question.text)">
+											<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+										</button>
+										<a href="/editAnswer/{{question.id}}" class="btn btn-primary">
+											<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+										</a>
+										<button class="btn btn-primary" ng-click="deleteQuestion(question.id)">
+											<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+										</button>
+									</div>
+								</div>
+							</li>
+							<li class="dndPlaceholder">
+						        <p>Drop here...</p>
+						    </li>
+						</ul>
+						
+						<ul style="list-style: none">
+							<li>
+								<div class="col-sm-9">
+									<div class="input-group">
+										<span class="input-group-addon" id="not-draggable-addon">X</span>
+										<input th:placeholder="#{label.editquiz.text.placeholder}" class="form-control"  aria-describedby="not-draggable-addon" ng-model="newQuestion"/>
+									</div>
+								</div>
+								<div class="col-sm-3">
+									<button class="btn btn-primary" ng-click="saveQuestion(0, newQuestion)">
+										<span class="glyphicon glyphicon-floppy-disk" aria-hidden="false"></span>
+									</button>
+								</div>
+							</li>
+						</ul>
+						
+			        </div>
+			        <div class="text-center">
+						<button th:text="#{label.editquiz.submit.saveAll}" class="btn btn-primary" type="submit" ng-click="saveAll()" ng-disabled="isQuizSaving">Update</button>
+						<button th:text="#{label.editquiz.submit.publish}" class="btn btn-primary" type="submit" ng-hide="quiz.isPublished" ng-click="publish()" ng-disabled="isPublishing">Publish</button>
+			        </div>
+				</form>  
+				<!-- Remove this when footer is added -->
+				<br/><br/><br/><br/><br/><br/><br/><br/>
+			</div>
+			 
+			<div class="col-sm-2"></div>
+			 
+		</div>
+	</div>
+
+	<div th:replace="fragments/angular :: angular"></div>
+	<script type="text/javascript" src="../js/angular-drag-and-drop-lists.min.js"
+		        th:src="@{/js/angular-drag-and-drop-lists.min.js}"></script>	
+	<script type="text/javascript" src="../js/editApp.js"
+		        th:src="@{/js/editApp.js}"></script>
+		        
+</body>
+</html>

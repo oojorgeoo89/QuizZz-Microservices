@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head  th:replace="fragments/head :: headerFragment">
+</head>
+<body>
+
+	<div th:replace="fragments/header :: header">...</div>
+	
+	<div class="container">
+	
+		<div class="col-sm-2"></div>
+		
+		<div class="col-sm-8">
+		
+			<h2 th:text="#{label.newquiz.pagetitle}" class="form-signin-heading text-center">New Quiz</h2>
+			<br/>
+			
+			<form name='f' action='/createQuiz' method='POST' class="form-signin">	
+				<div class="form-group">
+					<label th:text="#{label.newquiz.title}">Title</label>
+			        <input th:placeholder="#{label.newquiz.title.placeholder}" name="name" class="form-control" required="true" autofocus="true" />
+			        <br/>
+			        <label th:text="#{label.newquiz.description}">Description</label>
+			        <textarea th:placeholder="#{label.newquiz.description.placeholder}" name="description" class="form-control" rows="5" > </textarea>
+			        <br/>
+			        <button th:text="#{label.newquiz.submit}" class="btn btn-lg btn-primary btn-block" type="submit">Send</button>
+		        </div>
+			</form>
+			
+		</div>
+		
+		<div class="col-sm-2"></div>
+	</div>
+	 
+	
+</body>
+</html>
