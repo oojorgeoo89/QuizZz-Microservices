@@ -13,3 +13,8 @@ zuul:
       path: /**
       serviceId: quizzz
       sensitive-headers: 
+    auth:
+      path: /auth/**
+      serviceId: auth-server
+      sensitive-headers:
+      strip-prefix: false

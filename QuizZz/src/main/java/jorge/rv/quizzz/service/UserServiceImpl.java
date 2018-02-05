@@ -5,14 +5,12 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import jorge.rv.quizzz.exceptions.ResourceUnavailableException;
 import jorge.rv.quizzz.exceptions.UnauthorizedActionException;
 import jorge.rv.quizzz.exceptions.UserAlreadyExistsException;
-import jorge.rv.quizzz.model.AuthenticatedUser;
 import jorge.rv.quizzz.model.User;
 import jorge.rv.quizzz.repository.UserRepository;
 
@@ -42,27 +40,6 @@ public class UserServiceImpl implements UserService {
 		user.setEnabled(false);
 
 		return userRepository.save(user);
-	}
-
-	@Override
-	/*
-	 * Look up by both Email and Username. Throw exception if it wasn't in
-	 * either. TODO: Join Username and Email into one JPQL
-	 */
-	public AuthenticatedUser loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user;
-
-		try {
-			user = findByUsername(username);
-		} catch (ResourceUnavailableException e) {
-			try {
-				user = findByEmail(username);
-			} catch (ResourceUnavailableException e2) {
-				throw new UsernameNotFoundException(username + " couldn't be resolved to any user");
-			}
-		}
-
-		return new AuthenticatedUser(user);
 	}
 
 	@Override

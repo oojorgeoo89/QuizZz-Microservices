@@ -39,13 +39,14 @@ public class WebQuizController {
 	AccessControlService<Question> accessControlServiceQuestion;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@PreAuthorize("permitAll")
 	public String home() {
 		return "home";
 	}
 
 	@RequestMapping(value = "/createQuiz", method = RequestMethod.GET)
 	@PreAuthorize("isAuthenticated()")
-	public String newQuiz(Map<String, Object> model) {
+	public String newQuiz(@AuthenticationPrincipal AuthenticatedUser user, Map<String, Object> model) {
 		return "createQuiz";
 	}
 

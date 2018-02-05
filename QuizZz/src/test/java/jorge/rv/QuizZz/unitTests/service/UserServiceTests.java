@@ -1,7 +1,6 @@
 package jorge.rv.QuizZz.unitTests.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -11,8 +10,6 @@ import static org.mockito.Mockito.when;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import jorge.rv.quizzz.exceptions.QuizZzException;
@@ -85,23 +82,6 @@ public class UserServiceTests {
 		doThrow(new UnauthorizedActionException()).when(userRepository).delete(user);
 
 		service.delete(user.getId());
-	}
-
-	@Test(expected = UsernameNotFoundException.class)
-	public void findUserByUsername_shouldntFind() {
-		when(userRepository.findByEmail(user.getEmail())).thenThrow(new UsernameNotFoundException("test"));
-
-		service.loadUserByUsername("test");
-	}
-
-	@Test
-	public void findUserByUsername_shouldFind() {
-		when(userRepository.findByEmail(user.getEmail())).thenReturn(user);
-
-		UserDetails localUser = service.loadUserByUsername(user.getEmail());
-
-		verify(userRepository, times(1)).findByEmail(user.getEmail());
-		assertNotNull(localUser);
 	}
 
 	@Test
