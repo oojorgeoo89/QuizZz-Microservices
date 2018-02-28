@@ -47,7 +47,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                .accessTokenValiditySeconds(2000)
                .refreshTokenValiditySeconds(-1)
                .scopes("all")
-               .authorizedGrantTypes("password", "authorization_code", "refresh_token")
+               .authorizedGrantTypes("password", "implicit", "authorization_code", "refresh_token")
                .autoApprove(true);
     }
 	

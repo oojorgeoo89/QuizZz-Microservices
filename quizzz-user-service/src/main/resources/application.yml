@@ -1,0 +1,53 @@
+server:
+  port: 9005
+#  contextPath: /
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/QuizZz?autoReconnect=true
+    username: root
+    password: Password
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        show-sql: false
+        enableLazyLoadNoTrans: true
+    hibernate:
+      ddl-auto: update
+      
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+
+security:
+  oauth2:
+    client:
+      clientId: quizzz-web
+      client-secret: secret
+      access-token-uri: http://localhost:9000/auth/oauth/token
+      user-authorization-uri: http://localhost:9000/auth/oauth/authorize
+    resource:
+      user-info-uri: http://localhost:9000/auth/user
+      
+mail:
+  protocol: smtp
+  host: localhost
+  port: 25
+  from: me@localhost
+  username: 
+  password:
+  smtp:
+    auth: false
+    starttls:
+      enable: false
+      
+quizzz:
+  tokens:
+    registration_mail:
+      timeout: 86400
+    forgot_password:
+      timeout: 86400

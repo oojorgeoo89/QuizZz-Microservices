@@ -20,8 +20,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 @Table(name = "user")
 public class User implements UserDetails, Serializable {
@@ -45,11 +43,9 @@ public class User implements UserDetails, Serializable {
 	@Column(name = "password", unique = true)
 	@Length(min = 5, message = "Your password must have at least 5 characters")
 	@NotEmpty(message = "Please provide your password")
-	@JsonIgnore
 	private String password;
 
 	@Column(name = "enabled")
-	@JsonIgnore
 	private boolean enabled;
 
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

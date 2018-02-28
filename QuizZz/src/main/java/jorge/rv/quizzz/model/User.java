@@ -31,11 +31,9 @@ public class User extends BaseModel implements UserOwned, Serializable {
 	@Column(name = "password", unique = true)
 	@Length(min = 5, message = "Your password must have at least 5 characters")
 	@NotEmpty(message = "Please provide your password")
-	@JsonIgnore
 	private String password;
 
 	@Column(name = "enabled")
-	@JsonIgnore
 	private boolean enabled;
 
 	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)

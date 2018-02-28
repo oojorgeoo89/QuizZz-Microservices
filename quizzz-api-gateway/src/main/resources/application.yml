@@ -8,13 +8,25 @@ eureka:
       defaultZone: http://localhost:8761/eureka
       
 zuul:
+  ignoredServices: "*"
   routes:
     quizzz:
       path: /**
       serviceId: quizzz
       sensitive-headers: 
+    quiz-service:
+      path: /api/**
+      serviceId: quiz-service
+      sensitive-headers: 
+      strip-prefix: false
+    user-service:
+      path: /api/users/**
+      serviceId: user-service
+      sensitive-headers: 
+      strip-prefix: false
     auth:
       path: /auth/**
       serviceId: auth-server
       sensitive-headers:
       strip-prefix: false
+      
